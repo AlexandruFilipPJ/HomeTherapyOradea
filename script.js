@@ -45,15 +45,29 @@ accordionHeaders.forEach(header => {
 
         // Close all active items
         document.querySelectorAll('.accordion-item').forEach(el => {
-            el.classList.remove('active');
             const c = el.querySelector('.accordion-content');
-            if (c) c.style.maxHeight = null;
+            if (c && el.classList.contains('active')) {
+                // Set height back to scrollHeight before animating to 0
+                c.style.maxHeight = c.scrollHeight + "px";
+                // Force a reflow
+                c.offsetHeight; 
+                el.classList.remove('active');
+                c.style.maxHeight = "0px";
+            }
         });
 
         // Toggle current item
         if (!isActive && content) {
             item.classList.add('active');
             content.style.maxHeight = content.scrollHeight + "px";
+            
+            // Allow container to expand freely after animation completes to avoid content clipping
+            content.addEventListener('transitionend', function handler() {
+                if (item.classList.contains('active')) {
+                    content.style.maxHeight = "none";
+                }
+                content.removeEventListener('transitionend', handler);
+            });
         }
     });
 });
