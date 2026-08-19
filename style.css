@@ -2,7 +2,7 @@
     --primary: #0284c7;
     --primary-dark: #0369a1;
     --text: #1e293b;
-    --text-light: #64748b;
+    --text-light: #475569;
     --bg: #ffffff;
     --bg-light: #f8fafc;
     --border: #e2e8f0;
@@ -127,7 +127,7 @@ body {
 
 .main-nav a:hover,
 .main-nav a.active {
-    color: var(--primary);
+    color: #0275b2;
 }
 
 .btn-nav {
@@ -897,7 +897,7 @@ body {
 
 /* Dynamic Active Navigation Scroll States */
 .main-nav a.active-scroll {
-    color: var(--primary) !important;
+    color: #0275b2 !important;
     font-weight: 600;
 }
 
