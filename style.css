@@ -365,7 +365,7 @@ body {
     border: 1px solid var(--border);
 }
 
-.benefit-item h4 {
+.benefit-item h3 {
     margin-bottom: 0.5rem;
 }
 
