@@ -185,20 +185,20 @@
                                 <div class="play-icon">▶</div>
                                 <h4 class="active-video-title">Mobilizare Articulația Șoldului</h4>
                                 <p class="active-video-desc">Articulația șoldului - Tracțiune și rotație</p>
-                                <span class="active-video-filename">G_5.mov</span>
+                                <span class="active-video-filename">G_5.mp4</span>
                             </div>
 
                             <!-- Sidebar Playlist Tabs -->
                             <div class="video-playlist-sidebar">
-                                <div class="playlist-item active" data-video="G_5.mov" data-title="Mobilizare Articulația Șoldului" data-zone="Articulația șoldului - Tracțiune și rotație">
+                                <div class="playlist-item active" data-video="G_5.mp4" data-title="Mobilizare Articulația Șoldului" data-zone="Articulația șoldului - Tracțiune și rotație">
                                     <span class="playlist-item-title">Mobilizare Șold <span class="img-icon">🎥</span></span>
                                     <span class="playlist-item-zone">Procedură: Rotație și decoaptare</span>
-                                    <span class="playlist-item-meta">sold.mov</span>
+                                    <span class="playlist-item-meta">sold.mp4</span>
                                 </div>
-                                <div class="playlist-item" data-video="E_1.mov" data-title="Mobilizare Laba Piciorului" data-zone="Gleznă & Picior - Mobilizare metatarsiene">
+                                <div class="playlist-item" data-video="E_1.mp4" data-title="Mobilizare Laba Piciorului" data-zone="Gleznă & Picior - Mobilizare metatarsiene">
                                     <span class="playlist-item-title">Mobilizare Picior <span class="img-icon">🎥</span></span>
                                     <span class="playlist-item-zone">Procedură: Mobilizare articulară</span>
-                                    <span class="playlist-item-meta">picior.mov</span>
+                                    <span class="playlist-item-meta">picior.mp4</span>
                                 </div>
                             </div>
                         </div>
@@ -294,15 +294,55 @@
 
     <script src="../script.js"></script>
     <script>
-        // Generic Media Center Playlist Interactivity
+        // Configurable base path for video assets (easily swap to Cloudflare or another CDN later)
+        const mediaBaseUrl = "../assets/media/";
+
+        // Generic Media Center Playlist Interactivity with Load-on-Demand
         document.querySelectorAll('.media-center-grid').forEach(center => {
+            const display = center.querySelector('.active-video-display');
             const playlistItems = center.querySelectorAll('.playlist-item');
             const activeTitle = center.querySelector('.active-video-title');
             const activeZone = center.querySelector('.active-video-desc');
             const activeFilename = center.querySelector('.active-video-filename');
             
+            // Function to load and play video inside the display
+            const loadAndPlay = (filename) => {
+                if (!display) return;
+                
+                let video = display.querySelector('video');
+                if (!video) {
+                    video = document.createElement('video');
+                    video.controls = true;
+                    video.autoplay = true;
+                    video.playsInline = true;
+                    display.appendChild(video);
+                    display.classList.add('has-video');
+                }
+                
+                video.src = mediaBaseUrl + filename;
+                video.load();
+                video.play().catch(err => {
+                    console.log("Play failed, user interaction might be required: ", err);
+                });
+            };
+
+            // Click listener to load video on first click of the display
+            if (display) {
+                display.addEventListener('click', (e) => {
+                    // Only initialize if the video element doesn't exist yet
+                    if (!display.classList.contains('has-video')) {
+                        const activeItem = center.querySelector('.playlist-item.active');
+                        const filename = activeItem ? activeItem.getAttribute('data-video') : activeFilename.textContent;
+                        loadAndPlay(filename);
+                    }
+                });
+            }
+            
             playlistItems.forEach(item => {
-                item.addEventListener('click', () => {
+                item.addEventListener('click', (e) => {
+                    // Prevent triggering display click if clicking playlist item
+                    e.stopPropagation();
+                    
                     // Remove active class from all items in this specific playlist
                     playlistItems.forEach(el => el.classList.remove('active'));
                     
@@ -314,10 +354,15 @@
                     const titleText = item.getAttribute('data-title');
                     const zoneText = item.getAttribute('data-zone');
                     
-                    // Update player elements in this specific media center
+                    // Update text elements
                     if (activeTitle) activeTitle.textContent = titleText;
                     if (activeZone) activeZone.textContent = zoneText;
                     if (activeFilename) activeFilename.textContent = videoFile;
+                    
+                    // If video is already active/loaded, play the new video immediately
+                    if (display && display.classList.contains('has-video')) {
+                        loadAndPlay(videoFile);
+                    }
                 });
             });
         });
