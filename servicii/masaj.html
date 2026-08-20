@@ -54,7 +54,7 @@
             <!-- Section 1: Masaj Tailandez -->
             <section class="procedure-section">
                 <h3 class="procedure-title">Masaj Tailandez</h3>
-                <div class="procedure-content">
+                <div class="procedure-content full-width-media">
                     <div class="procedure-text">
                         <p>Masajul tailandez tradițional este o terapie corporală sacră ce îmbină tehnici de presopunctură de-a lungul canalelor energetice (liniile Sen) cu întinderi și mobilizări pasive inspirate din posturile de yoga.</p>
                         <p>Spre deosebire de masajele clasice, acesta se execută pe o saltea specială la sol, purtând îmbrăcăminte lejeră. Terapeutul folosește mâinile, coatele, genunchii și chiar picioarele pentru a ghida corpul în poziții de stretching profund, oferind o deblocare articulară și o relaxare mentală de neegalat.</p>
@@ -67,14 +67,14 @@
                         </ul>
                     </div>
                     <div class="media-placeholder">
-                        <div class="placeholder-gallery-container">
-                            <div class="placeholder-image-item">
-                                <div class="img-icon">🖼️</div>
-                                <code>WhatsApp-Image-2024-08-21-at-13.12.21-1-1024x704.jpeg</code>
+                        <div class="carousel-container" style="justify-content: center; gap: 1rem; width: 100%; max-width: 680px; margin: 0 auto;">
+                            <div class="carousel-item">
+                                <img src="../assets/media/masaj_thai_stretching.webp" alt="Masaj Tailandez - Detensionare musculară și stretching pasiv">
+                                <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-dark); margin-top: 0.25rem;">Stretching Pasiv</span>
                             </div>
-                            <div class="placeholder-image-item">
-                                <div class="img-icon">🖼️</div>
-                                <code>WhatsApp-Image-2024-08-21-at-13.12.21-768x1024.jpeg</code>
+                            <div class="carousel-item">
+                                <img src="../assets/media/masaj_thai_articular.webp" alt="Masaj Tailandez - Mobilizare articulară pe saltea specială la sol">
+                                <span style="font-size: 0.8rem; font-weight: 600; color: var(--text-dark); margin-top: 0.25rem;">Deblocare Articulară</span>
                             </div>
                         </div>
                     </div>
@@ -99,10 +99,11 @@
                         </ul>
                     </div>
                     <div class="media-placeholder">
-                        <div class="placeholder-video-container">
+                        <div class="active-video-display single-video-display" data-video="masaj_deep_tissue.mp4" style="width: 100%; max-width: 480px; aspect-ratio: 16/9; border-radius: var(--radius); margin: 0 auto;">
                             <div class="play-icon">▶</div>
-                            <span>Video: Demonstrație Masaj Deep Tissue</span>
-                            <code>F.mov</code>
+                            <h4 class="active-video-title">Masaj Deep Tissue</h4>
+                            <p class="active-video-desc">Demonstrație masaj profund al țesuturilor musculare</p>
+                            <span class="active-video-filename">masaj_deep_tissue.mp4</span>
                         </div>
                     </div>
                 </div>
@@ -126,10 +127,11 @@
                         </ul>
                     </div>
                     <div class="media-placeholder">
-                        <div class="placeholder-video-container">
+                        <div class="active-video-display single-video-display" data-video="masaj_anticelulitic.mp4" style="width: 100%; max-width: 480px; aspect-ratio: 16/9; border-radius: var(--radius); margin: 0 auto;">
                             <div class="play-icon">▶</div>
-                            <span>Video: Demonstrație Masaj Anticelulitic</span>
-                            <code>Video_20200608134938057_by_Videomaker.mp4</code>
+                            <h4 class="active-video-title">Masaj Anticelulitic</h4>
+                            <p class="active-video-desc">Demonstrație masaj intensificator de circulație și netezire</p>
+                            <span class="active-video-filename">masaj_anticelulitic.mp4</span>
                         </div>
                     </div>
                 </div>
@@ -171,6 +173,25 @@
     <button id="backToTop" class="back-to-top" aria-label="Înapoi sus">↑</button>
 
     <script src="../script.js"></script>
+    <script>
+        // Lazy load single videos on click
+        document.querySelectorAll('.single-video-display').forEach(display => {
+            display.addEventListener('click', function() {
+                if (this.classList.contains('has-video')) return;
+                
+                const videoFile = this.getAttribute('data-video');
+                if (!videoFile) return;
+                
+                const video = document.createElement('video');
+                video.src = `../assets/media/${videoFile}`;
+                video.controls = true;
+                video.autoplay = true;
+                
+                this.appendChild(video);
+                this.classList.add('has-video');
+            });
+        });
+    </script>
 </body>
 
 </html>

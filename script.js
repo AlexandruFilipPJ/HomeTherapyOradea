@@ -138,3 +138,52 @@ if (backToTopBtn) {
         });
     });
 }
+
+// 4. Image Lightbox / Zoom Photo Overlay
+document.addEventListener("DOMContentLoaded", () => {
+    // Create and inject Lightbox HTML markup dynamically
+    const lightbox = document.createElement("div");
+    lightbox.className = "lightbox-modal";
+    lightbox.innerHTML = `
+        <button class="lightbox-close" aria-label="Închide">&times;</button>
+        <img class="lightbox-content" src="" alt="Imagine mărită">
+        <div class="lightbox-caption"></div>
+    `;
+    document.body.appendChild(lightbox);
+
+    const lightboxImg = lightbox.querySelector(".lightbox-content");
+    const lightboxCaption = lightbox.querySelector(".lightbox-caption");
+    const closeBtn = lightbox.querySelector(".lightbox-close");
+
+    // Click listener to zoom images (targets carousel images or any img with class .zoomable)
+    document.addEventListener("click", (e) => {
+        const target = e.target;
+        if (target.tagName === "IMG" && (target.closest(".carousel-container") || target.classList.contains("zoomable"))) {
+            lightboxImg.src = target.src;
+            lightboxImg.alt = target.alt;
+            if (lightboxCaption) {
+                lightboxCaption.textContent = target.alt || "Imagine";
+            }
+            lightbox.classList.add("active");
+            document.body.style.overflow = "hidden"; // Prevent background body scroll
+        }
+    });
+
+    // Close functionality
+    const closeLightbox = () => {
+        lightbox.classList.remove("active");
+        document.body.style.overflow = ""; // Restore scrolling
+    };
+
+    closeBtn.addEventListener("click", closeLightbox);
+    lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) {
+            closeLightbox();
+        }
+    });
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && lightbox.classList.contains("active")) {
+            closeLightbox();
+        }
+    });
+});

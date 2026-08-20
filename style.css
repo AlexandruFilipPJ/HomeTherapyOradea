@@ -1370,7 +1370,7 @@ body {
     background: var(--bg-light);
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    padding: 1.25rem 1rem;
+    padding: 1rem;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -1383,6 +1383,13 @@ body {
 .carousel-item:hover {
     transform: translateY(-2px);
     border-color: var(--primary);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
 .carousel-item .img-icon {
@@ -1409,3 +1416,164 @@ body {
         max-height: 280px;
     }
 }
+
+/* Lightbox / Zoom Photo Modal */
+.lightbox-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000; /* Ensure it stays above navigation headers and top buttons */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.95);
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lightbox-modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox-content {
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 12px;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    object-fit: contain;
+    cursor: zoom-out;
+}
+
+.lightbox-modal.active .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 3rem;
+    color: #fff;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    outline: none;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.lightbox-close:hover {
+    transform: scale(1.1);
+    color: var(--primary);
+}
+
+.lightbox-caption {
+    position: absolute;
+    bottom: 20px;
+    color: #e2e8f0;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    background: rgba(15, 23, 42, 0.8);
+    padding: 0.5rem 1.5rem;
+    border-radius: 30px;
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Cursor pointer style to let users know they can click to zoom */
+.carousel-container img, img.zoomable {
+    cursor: zoom-in;
+    transition: filter 0.2s ease;
+}
+
+.carousel-container img:hover, img.zoomable:hover {
+    filter: brightness(0.9);
+}
+
+/* Media Placeholder container layout */
+.media-placeholder {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+/* Responsive Side-by-Side Media Layout for subpages on desktop */
+@media (min-width: 992px) {
+    .procedure-content.full-width-media .media-placeholder {
+        flex-direction: row;
+        gap: 2.5rem;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1.5rem;
+    }
+
+    .procedure-content.full-width-media .media-placeholder .single-video-display {
+        flex: 1.2;
+        width: 100% !important;
+        max-width: 520px !important;
+        margin: 0 !important;
+    }
+
+    .procedure-content.full-width-media .media-placeholder .carousel-container {
+        flex: 1;
+        width: 100% !important;
+        max-width: 520px !important;
+        margin: 0 !important;
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)) !important;
+        gap: 1rem !important;
+        overflow-x: visible !important;
+        padding-bottom: 0 !important;
+    }
+
+    .procedure-content.full-width-media .media-placeholder .carousel-item {
+        width: 100% !important;
+        min-width: 0 !important;
+        scroll-snap-align: none !important;
+    }
+}
+
+/* Stacked layout for media placeholders with playlists on desktop */
+@media (min-width: 992px) {
+    .procedure-content.full-width-media .media-placeholder.has-playlist {
+        flex-direction: column !important;
+        align-items: stretch;
+        gap: 2.5rem;
+    }
+    
+    .procedure-content.full-width-media .media-placeholder.has-playlist .carousel-wrapper {
+        width: 100%;
+        max-width: none !important;
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
+
+    .procedure-content.full-width-media .media-placeholder.has-playlist .carousel-container {
+        display: flex !important;
+        overflow-x: auto !important;
+        grid-template-columns: none !important;
+        max-width: none !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding-bottom: 1rem !important;
+        justify-content: flex-start !important;
+    }
+
+    .procedure-content.full-width-media .media-placeholder.has-playlist .carousel-item {
+        width: 220px !important;
+        min-width: 220px !important;
+        scroll-snap-align: start !important;
+    }
+
+    .procedure-content.full-width-media .media-placeholder.has-playlist .media-center-grid {
+        width: 100%;
+        margin-top: 0;
+    }
+}
