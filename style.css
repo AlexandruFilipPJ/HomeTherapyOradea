@@ -1403,6 +1403,13 @@ body {
     word-break: break-all;
 }
 
+/* Fix mobile alignment issues for centered carousels (prevents clipping/starting from middle) */
+@media (max-width: 991px) {
+    .carousel-container {
+        justify-content: flex-start !important;
+    }
+}
+
 @media (max-width: 768px) {
     .media-center-grid {
         grid-template-columns: 1fr;
