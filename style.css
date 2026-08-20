@@ -193,6 +193,10 @@ body {
     align-items: center;
 }
 
+.hero-btn-mobile {
+    display: none;
+}
+
 .hero-profile-img {
     width: 100%;
     max-width: 360px;
@@ -528,7 +532,20 @@ body {
     }
 
     .hero-image-wrapper {
+        flex-direction: column;
         margin-bottom: 1.5rem;
+    }
+
+    .hero-btn-desktop {
+        display: none !important;
+    }
+
+    .hero-btn-mobile {
+        display: inline-flex !important;
+        margin-top: 1.5rem;
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
     }
 
     .benefits-grid {
