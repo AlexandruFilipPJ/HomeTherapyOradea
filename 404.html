@@ -154,6 +154,26 @@
         const isGithubPages = window.location.hostname.includes('github.io');
         const repoPrefix = isGithubPages ? '/HomeTherapyOradea/' : '/';
 
+        const currentPath = window.location.pathname.toLowerCase();
+        
+        // Redirect mappings from old WordPress URLs to new static pages
+        const redirectMap = {
+            'fizioterapie': 'servicii/fizioterapie.html',
+            'kinetoterapie': 'servicii/kinetoterapie.html',
+            'masaj': 'servicii/masaj.html',
+            'manipulari': 'servicii/manipulari-si-mobilizari-articulare.html',
+            'mobilizari': 'servicii/manipulari-si-mobilizari-articulare.html',
+            'chiro': 'servicii/manipulari-si-mobilizari-articulare.html'
+        };
+
+        // Check if current path matches an old URL key and redirect immediately
+        for (const [key, target] of Object.entries(redirectMap)) {
+            if (currentPath.includes(key)) {
+                window.location.replace(repoPrefix + target);
+                break;
+            }
+        }
+
         // Update home button link dynamically
         const homeLinkEl = document.getElementById('homeLink');
         if (homeLinkEl) {
