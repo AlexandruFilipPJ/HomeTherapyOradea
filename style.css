@@ -651,6 +651,10 @@ body {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
+    .procedure-content.mobile-reverse {
+        display: flex;
+        flex-direction: column-reverse;
+    }
 }
 
 .procedure-text p {

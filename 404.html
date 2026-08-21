@@ -5,8 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagina nu a fost găsită (404) | Andrei Țolaș</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png">
+    <meta name="description"
+        content="Pagina nu a fost găsită. Te redirecționăm automat către prima pagină a site-ului Andrei Țolaș - Recuperare Medicală la Domiciliu în Oradea.">
+    <script>
+        // Resolve paths dynamically based on deployment environment (custom domain vs. GitHub Pages subfolder)
+        const isGithub = window.location.hostname.includes('github.io');
+        const pathPrefix = isGithub ? '/HomeTherapyOradea/' : '/';
+
+        // Inject styles
+        const linkStyle = document.createElement('link');
+        linkStyle.rel = 'stylesheet';
+        linkStyle.href = pathPrefix + 'style.css';
+        document.head.appendChild(linkStyle);
+
+        // Inject favicon
+        const linkIcon = document.createElement('link');
+        linkIcon.rel = 'icon';
+        linkIcon.type = 'image/png';
+        linkIcon.href = pathPrefix + 'favicon.png';
+        document.head.appendChild(linkIcon);
+    </script>
     <style>
         .error-container {
             min-height: 100vh;
@@ -117,13 +135,22 @@
             </div>
 
             <div class="error-actions">
-                <a href="index.html" class="btn btn-primary">Înapoi la Acasă</a>
+                <a href="index.html" id="homeLink" class="btn btn-primary">Înapoi la Acasă</a>
                 <a href="tel:0752847555" class="btn btn-outline">Sună Kinetoterapeut</a>
             </div>
         </div>
     </div>
 
     <script>
+        const isGithubPages = window.location.hostname.includes('github.io');
+        const repoPrefix = isGithubPages ? '/HomeTherapyOradea/' : '/';
+
+        // Update home button link dynamically
+        const homeLinkEl = document.getElementById('homeLink');
+        if (homeLinkEl) {
+            homeLinkEl.href = repoPrefix + "index.html";
+        }
+
         let seconds = 10;
         const countdownEl = document.getElementById('countdown');
 
@@ -133,7 +160,7 @@
 
             if (seconds <= 0) {
                 clearInterval(interval);
-                window.location.href = "index.html";
+                window.location.href = repoPrefix + "index.html";
             }
         }, 1000);
     </script>
