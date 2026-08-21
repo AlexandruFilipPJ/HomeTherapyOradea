@@ -246,14 +246,17 @@ body {
     .services-grid {
         grid-template-columns: repeat(4, 1fr);
     }
+
     .services-grid .service-card:nth-child(1),
     .services-grid .service-card:nth-child(2),
     .services-grid .service-card:nth-child(3),
     .services-grid .service-card:nth-child(4) {
         grid-column: span 2;
     }
+
     .services-grid .service-card:nth-child(5) {
-        grid-column: 2 / span 2; /* Center Row 3 card */
+        grid-column: 2 / span 2;
+        /* Center Row 3 card */
     }
 }
 
@@ -261,16 +264,21 @@ body {
     .services-grid {
         grid-template-columns: repeat(6, 1fr);
     }
+
     .services-grid .service-card:nth-child(1),
     .services-grid .service-card:nth-child(2),
     .services-grid .service-card:nth-child(3) {
         grid-column: span 2;
     }
+
     .services-grid .service-card:nth-child(4) {
-        grid-column: 2 / span 2; /* Center Row 2 first card */
+        grid-column: 2 / span 2;
+        /* Center Row 2 first card */
     }
+
     .services-grid .service-card:nth-child(5) {
-        grid-column: 4 / span 2; /* Center Row 2 second card */
+        grid-column: 4 / span 2;
+        /* Center Row 2 second card */
     }
 }
 
@@ -285,7 +293,8 @@ body {
 }
 
 .service-card:nth-child(even) {
-    background: rgba(2, 132, 199, 0.03); /* Subtle blue tint */
+    background: rgba(2, 132, 199, 0.03);
+    /* Subtle blue tint */
     border-color: rgba(2, 132, 199, 0.1);
 }
 
@@ -376,7 +385,8 @@ body {
 }
 
 .benefit-item:nth-child(even) {
-    background: rgba(2, 132, 199, 0.03); /* Subtle blue tint */
+    background: rgba(2, 132, 199, 0.03);
+    /* Subtle blue tint */
     border-color: rgba(2, 132, 199, 0.1);
 }
 
@@ -651,6 +661,7 @@ body {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
+
     .procedure-content.mobile-reverse {
         display: flex;
         flex-direction: column-reverse;
@@ -663,7 +674,7 @@ body {
     text-align: justify;
 }
 
-.procedure-text h4, 
+.procedure-text h4,
 .procedure-text h5 {
     margin: 1.5rem 0 0.75rem;
     color: var(--text);
@@ -885,13 +896,15 @@ body {
 }
 
 .accordion-item.active .accordion-content {
-    max-height: 2000px; /* High value to fit all text comfortably */
+    max-height: 2000px;
+    /* High value to fit all text comfortably */
     padding: 1.75rem;
     border-top: 1px solid var(--border);
 }
 
 .accordion-item.active .accordion-icon {
-    transform: rotate(45deg); /* plus rotates to close x */
+    transform: rotate(45deg);
+    /* plus rotates to close x */
 }
 
 /* Accordion Specific Typography and Lists */
@@ -908,7 +921,7 @@ body {
     color: var(--text);
 }
 
-.accordion-content ol, 
+.accordion-content ol,
 .accordion-content ul {
     margin: 1rem 0;
     padding-left: 1.5rem;
@@ -1016,7 +1029,8 @@ body {
 }
 
 .stars {
-    color: #f59e0b; /* Amber gold color for rating stars */
+    color: #f59e0b;
+    /* Amber gold color for rating stars */
     font-size: 1.25rem;
 }
 
@@ -1178,6 +1192,7 @@ body {
 }
 
 @media (max-width: 768px) {
+
     .testimonials-grid,
     .success-stories-grid {
         grid-template-columns: 1fr;
@@ -1210,6 +1225,39 @@ body {
     border: 1px solid var(--border);
     min-height: 380px;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    /* Restricts the watermark to the rounded borders of the box */
+}
+
+/* Watermark background using logo */
+.active-video-display::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('assets/media/logo_business.webp');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 260px;
+    /* Subtle display size for the watermark logo */
+    opacity: 0.60;
+    /* Increased opacity for better visibility */
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.active-video-display.has-video::before {
+    opacity: 0;
+    display: none !important;
+}
+
+/* Ensure text and icons stay above the watermark */
+.active-video-display>* {
+    position: relative;
+    z-index: 2;
 }
 
 .active-video-display .play-icon {
@@ -1419,10 +1467,12 @@ body {
         grid-template-columns: 1fr;
         gap: 1rem;
     }
+
     .active-video-display {
         min-height: 280px;
         padding: 2rem 1rem;
     }
+
     .video-playlist-sidebar {
         max-height: 280px;
     }
@@ -1432,7 +1482,8 @@ body {
 .lightbox-modal {
     display: none;
     position: fixed;
-    z-index: 3000; /* Ensure it stays above navigation headers and top buttons */
+    z-index: 3000;
+    /* Ensure it stays above navigation headers and top buttons */
     top: 0;
     left: 0;
     width: 100%;
@@ -1498,12 +1549,14 @@ body {
 }
 
 /* Cursor pointer style to let users know they can click to zoom */
-.carousel-container img, img.zoomable {
+.carousel-container img,
+img.zoomable {
     cursor: zoom-in;
     transition: filter 0.2s ease;
 }
 
-.carousel-container img:hover, img.zoomable:hover {
+.carousel-container img:hover,
+img.zoomable:hover {
     filter: brightness(0.9);
 }
 
@@ -1558,7 +1611,7 @@ body {
         align-items: stretch;
         gap: 2.5rem;
     }
-    
+
     .procedure-content.full-width-media .media-placeholder.has-playlist .carousel-wrapper {
         width: 100%;
         max-width: none !important;
@@ -1587,4 +1640,4 @@ body {
         width: 100%;
         margin-top: 0;
     }
-}
+}
